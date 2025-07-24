@@ -1,6 +1,8 @@
 {% schema %}
 {
   "name": "Featured products",
+  "tag": "section",
+  "class": "section-featured-products",
   "settings": [
     {
       "type": "checkbox",
@@ -9,32 +11,52 @@
       "default": true
     },
     {
-      "type": "image_picker",
-      "id": "modal_image",
-      "label": "Modal image"
+      "type": "checkbox",
+      "id": "show_main_image",
+      "label": "Show product image in modal",
+      "default": true
     },
     {
       "type": "text",
       "id": "modal_heading",
       "label": "Modal heading",
-      "default": "Recommended products"
+      "default": "Complete your purchase"
     },
     {
       "type": "checkbox",
       "id": "show_once",
-      "label": "Show modal only once per customer",
+      "label": "Show only once per customer",
       "default": false
     },
     {
       "type": "product_list",
-      "id": "modal_products",
+      "id": "recommended_products",
       "label": "Products to show in modal"
     }
   ],
   "presets": [
     {
-      "name": "Featured products"
+      "name": "Featured products",
+      "category": "Custom"
     }
   ]
 }
 {% endschema %}
+
+<div id="featured-products">
+  <product-modal 
+    data-enabled="{{ section.settings.enable_modal }}"
+    data-show-once="{{ section.settings.show_once }}"
+    data-heading="{{ section.settings.modal_heading }}"
+    data-show-main-image="{{ section.settings.show_main_image }}"
+    data-products='[
+      {% for product in section.settings.recommended_products %}
+        {
+          "handle": "{{ product.handle }}",
+          "variantId": {{ product.variants.first.id }}
+        }{% unless forloop.last %},{% endunless %}
+      {% endfor %}
+    ]'
+  ></product-modal>
+</div>
+

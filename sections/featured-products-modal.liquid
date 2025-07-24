@@ -1,0 +1,40 @@
+{% schema %}
+{
+  "name": "Featured products",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable_modal",
+      "label": "Enable modal window",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "modal_image",
+      "label": "Modal image"
+    },
+    {
+      "type": "text",
+      "id": "modal_heading",
+      "label": "Modal heading",
+      "default": "Recommended products"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_once",
+      "label": "Show modal only once per customer",
+      "default": false
+    },
+    {
+      "type": "product_list",
+      "id": "modal_products",
+      "label": "Products to show in modal"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured products"
+    }
+  ]
+}
+{% endschema %}
